@@ -1,7 +1,12 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using SklepInternetowy.Data;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddDbContext<SklepInternetowyContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("SklepInternetowyContext") ?? throw new InvalidOperationException("Connection string 'SklepInternetowyContext' not found.")));
 
 var app = builder.Build();
 
