@@ -39,7 +39,7 @@
             @Html.DisplayNameFor(model => model.Product.ImageUrl)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Product.ImageUrl)
+            <img src="@Html.DisplayFor(model => model.Product.ImageUrl)" height="100" width="100" />
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Product.CreatedAt)
