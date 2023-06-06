@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -49,6 +50,32 @@ namespace SklepInternetowy.Pages.Products
             }
             Categories = new SelectList(await genreQuery.Distinct().ToListAsync());
             Product = await products.ToListAsync();
+        }
+
+        public IActionResult OnPostAddToBasket(int id)
+        {
+            // Find the selected product by its ID
+            var selectedProduct = _context.Product.Find(id);
+
+            if (selectedProduct != null)
+            {
+                // Retrieve the existing list of products from session, or create a new one if it doesn't exist
+                var productListJson = HttpContext.Session.GetString("BasketProducts");
+                var productList = !string.IsNullOrEmpty(productListJson)
+                    ? JsonSerializer.Deserialize<List<Product>>(productListJson)
+                    : new List<Product>();
+
+                // Add the selected product to the list
+                productList.Add(selectedProduct);
+
+                // Serialize the updated list back to JSON
+                var updatedListJson = JsonSerializer.Serialize(productList);
+
+                // Store the updated list in session
+                HttpContext.Session.SetString("BasketProducts", updatedListJson);
+            }
+
+            return RedirectToPage();
         }
     }
 }

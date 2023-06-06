@@ -34,9 +34,6 @@
             </th>
             <th>
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Product[0].CreatedAt)
-            </th>
             <th></th>
         </tr>
     </thead>
@@ -50,7 +47,7 @@
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Price)
+                @Html.DisplayFor(modelItem => item.Price)$
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Category)
@@ -59,12 +56,11 @@
                 <img src="@Html.DisplayFor(modelItem => item.ImageUrl)" height="100" width="100"/>
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CreatedAt)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a>
+
+                <form method="post" asp-page-handler="AddToBasket" asp-route-id="@item.Id">
+                    <button type="submit">Add to Basket</button>
+                </form>
             </td>
         </tr>
 }

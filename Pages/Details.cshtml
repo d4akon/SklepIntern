@@ -27,7 +27,7 @@
             @Html.DisplayNameFor(model => model.Product.Price)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Product.Price)
+            @Html.DisplayFor(model => model.Product.Price)$
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Product.Category)
@@ -35,21 +35,11 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Product.Category)
         </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Product.ImageUrl)
-        </dt>
         <dd class="col-sm-10">
-            <img src="@Html.DisplayFor(model => model.Product.ImageUrl)" height="100" width="100" />
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Product.CreatedAt)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Product.CreatedAt)
+            <img src="@Html.DisplayFor(model => model.Product.ImageUrl)" height="400" width="500" />
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-page="./Edit" asp-route-id="@Model.Product?.Id">Edit</a> |
     <a asp-page="./Index">Back to List</a>
 </div>
