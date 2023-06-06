@@ -1,4 +1,45 @@
 ﻿@page
 @model SklepInternetowy.Pages.BasketModel
-@{
+
+<h1>Basket</h1>
+
+@if (Model.BasketProducts.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Category</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in Model.BasketProducts)
+            {
+                <tr>
+                    <td>@product.Name</td>
+                    <td>@product.Description</td>
+                    <td>@product.Price</td>
+                    <td>@product.Category</td>
+                    <td>
+                        <form method="post" asp-page-handler="Buy" asp-route-id="@product.Id">
+                            <input type="submit" value="Buy" class="btn btn-primary" />
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <form method="post" asp-page-handler="ClearBasket">
+        <input type="submit" value="Clear Basket" class="btn btn-danger" />
+    </form>
 }
+else
+{
+    <p>No products in the basket.</p>
+}
+
+<a asp-page="Index">Back to Main Page</a>
