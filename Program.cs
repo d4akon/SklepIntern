@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using SklepInternetowy.Data;
+using SklepInternetowy.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -9,6 +11,13 @@ builder.Services.AddDbContext<SklepInternetowyContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("SklepInternetowyContext") ?? throw new InvalidOperationException("Connection string 'SklepInternetowyContext' not found.")));
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+
+    SeedData.Initialize(services);
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
